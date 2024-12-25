@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/spring_hibernate
+    username: postgres
+    password: postgre
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+loan:
+  minimalIncome: 40_000 # минимальный доход
+  maxCredit: 0.5 # % кредита от годового дохода
+  carCredit: 0.3 # % кредита от стоимости машины
