@@ -8,6 +8,8 @@ import ru.max.javaspringboot.SpringBootGet_223.model.User;
 import ru.max.javaspringboot.SpringBootGet_223.repositories.CarRepository;
 import ru.max.javaspringboot.SpringBootGet_223.repositories.UserRepository;
 
+import java.util.List;
+
 @Service
 public class LoanService {
 
@@ -43,8 +45,8 @@ public class LoanService {
         Car car = user.getCar();
         double carPrice = car != null ? car.getPrice() : 0.0;
 
-        double income = incomeService.getIncomeByUserId(userId);
-        double maxLoanByIncome = income > minimalIncome ? (income * maxCredit) : 0.0;
+        double income = incomeService.getUserIncome(userId);
+        double maxLoanByIncome = income > minimalIncome ? (income * 12 * maxCredit) : 0.0;
         double maxLoanByCar = carPrice > 1_000_000 ? (carPrice * carCredit) : 0.0;
 
         return Math.max(maxLoanByIncome, maxLoanByCar);

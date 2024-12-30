@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "Cars")
+@Table(name = "cars")
 public class Car {
 
     @Id
@@ -12,24 +12,16 @@ public class Car {
     @Column(name = "car_id")
     private Long id;
 
-    @Column(name = "model")
-    private String model;
-
-    @Column(name = "series")
-    private int series;
-
     @Column(name = "price")
     private double price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
     private User user;
 
     public Car() {
     }
 
-    public Car(String model, int series, double price) {
-        this.model = model;
-        this.series = series;
+    public Car(double price) {
         this.price = price;
     }
 
@@ -39,22 +31,6 @@ public class Car {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getSeries() {
-        return series;
-    }
-
-    public void setSeries(int series) {
-        this.series = series;
     }
 
     public User getUser() {
