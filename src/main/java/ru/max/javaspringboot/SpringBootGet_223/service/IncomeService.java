@@ -22,13 +22,6 @@ public class IncomeService {
         this.restTemplate = restTemplate;
     }
 
-    public List<User> getAllUsers() {
-        ResponseEntity<List<User>> responseEntity =
-                restTemplate.exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
-        List<User> allUsers = responseEntity.getBody();
-
-        return allUsers;
-    }
 
     public double getUserIncome(Long userId) {
         User[] users = restTemplate.getForObject(URL, User[].class);
