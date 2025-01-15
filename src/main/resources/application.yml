@@ -13,3 +13,7 @@ loan:
   minimalIncome: 40_000 # минимальный доход
   maxCredit: 0.5 # % кредита от годового дохода
   carCredit: 0.3 # % кредита от стоимости машины
+
+income:
+  client:
+    url: https://66055cd12ca9478ea1801f2e.mockapi.io/api/users/income

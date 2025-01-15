@@ -2,6 +2,7 @@ package ru.max.javaspringboot.SpringBootGet_223.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.IncomeClient;
 import org.springframework.stereotype.Service;
 import ru.max.javaspringboot.SpringBootGet_223.config.LoanProperties;
 import ru.max.javaspringboot.SpringBootGet_223.model.Car;
@@ -12,23 +13,20 @@ import ru.max.javaspringboot.SpringBootGet_223.repository.UserRepository;
 @Service
 public class LoanService {
 
-    @Autowired
     private final CarRepository carRepository;
 
-    @Autowired
     private final UserRepository userRepository;
 
-    @Autowired
-    private final IncomeService incomeService;
-
-    @Autowired
     private final LoanProperties loanProperties;
 
-    public LoanService(CarRepository carRepository, UserRepository userRepository, IncomeService incomeService, LoanProperties loanProperties) {
+    private final IncomeClient client;
+
+    @Autowired
+    public LoanService(CarRepository carRepository, UserRepository userRepository, LoanProperties loanProperties, IncomeClient client) {
         this.carRepository = carRepository;
         this.userRepository = userRepository;
-        this.incomeService = incomeService;
         this.loanProperties = loanProperties;
+        this.client = client;
     }
 
     public Double approveLoan(Long userId) {
@@ -39,7 +37,7 @@ public class LoanService {
         Car car = user.getCar();
         double carPrice = car != null ? car.getPrice() : 0.0;
 
-        double income = incomeService.getUserIncome(userId);
+        double income = client.getUserIncome(userId);
         double maxLoanByIncome = income > loanProperties.getMinimalIncome() ? (income * 12 * loanProperties.getMaxCredit()) : 0.0;
         double maxLoanByCar = carPrice > 1_000_000 ? (carPrice * loanProperties.getCarCredit()) : 0.0;
 
